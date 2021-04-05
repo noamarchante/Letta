@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><Context>
+<Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory" name="jdbc/daaexample" password="daa" type="javax.sql.DataSource" url="jdbc:mysql://localhost/daaexample?useSSL=false" username="daa"/>
+<Resource auth="Container" factory="org.objectweb.jotm.UserTransactionFactory" jotm.timeout="60" name="UserTransaction" type="javax.transaction.UserTransaction"/>
+</Context>
