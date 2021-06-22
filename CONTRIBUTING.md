@@ -34,28 +34,39 @@ El proceso habitual para realizar una tarea será, normalmente, el siguiente:
 5. Implementa la solución, incluyendo los tests (ver sección 7).
 6. Haz un commit con cada parte estable (completa y testeada) que desarrolles.
 7. Cada vez que hagas un commit envíalo al repositorio central **Gitlab** para compartirlo con el resto del equipo (ver sección 6).
-8. Si la construcción falla, sigue los pasos descritos en la sección 6.3.
-9. Cuando acabes la tarea recuerda añadir las horas en la tarea de **Kunagi** y mover esta misma a **Completed Tasks**.
+8. Cuando acabes la tarea recuerda añadir las horas en la tarea de **Kunagi** y mover esta misma a **Completed Tasks**.
 
 
 3. **Estructura del proyecto**
 
-Este proyecto está estructurado en 2 grandes módulos con sub-módulos internos:
+Este proyecto está estructurado en 2 grandes directorios con sub-directorios internos:
 
-- main: Módulo que contiene el código desarrollado para el proyecto.
+- main: Directorio que contiene el código desarrollado para el proyecto.
 
-- test: Módulo que contiene los test desarrollados para el proyecto y las utilidades utilizadas en estos.
+- test: Directorio que contiene los test desarrollados para el proyecto y las utilidades utilizadas en estos.
 
-Dentro de **main** es importante notar la división entre dos submódulos, **java** y **webapp**.
+Dentro de **main** es importante notar la división entre dos subdirectorios, **java** y **webapp**.
 
-- java: Módulo que contiene el código desarrollado para el backend del sistema (Java).
-- webapp: Módulo que contiene el código desarrollado referente al frontend (javascript, HTML y CSS) organizados en diversos directorios.
+- java:  Directorio que contiene el código desarrollado para el backend del sistema (Java).
+- webapp: Directorio que contiene el código desarrollado referente al frontend (javascript, HTML y CSS) organizado en diversos sub-directorios.
 
 Dentro de **java** se encuentran las siguientes subdivisiones referentes a cada una de las partes del backend.
 
-- dao: Módulo donde se contiene las clases del dao (data access object).
-- entities: Módulo que contiene las clases de dominio (entidades).
-- rest: Módulo que contiene la capa de servicios REST desarrollados.
+- dao: Directorio donde se contiene las clases del dao (data access object).
+- entities: Directorio que contiene las clases de dominio (entidades).
+- rest: Directorio que contiene la capa de servicios REST desarrollados.
+
+Dentro de **webapp** se encuentran las siguientes subdivisiones referentes a cada una de las partes del frontend.
+
+- icons: Directorio que contiene los iconos utilizados en la vista de la aplicación
+- images: Directorio que contiene las imágenes de los eventos
+- js: Directorio que contiene  la interfaz de la aplicación y los dao. Se subdivide en dos directorios, dao y view.
+- WEB-INF: Directorio que contiene todos los recursos relacionados con la aplicación web.
+
+Dentro del directorio js existen dos subdirectorios:
+
+-dao: Directorio que contiene los dao que relacionan el backend con el frontend
+- view: directorio que contiene las interfaces de la aplicación.
 
  **4. Entorno de desarrollo**
 
@@ -92,7 +103,7 @@ Los ficheros del proyecto _db/mysql.sql_ y _&#39;db/mysql-with-inserts.sql&#39;_
 
 Una vez configurada la base de datos podemos lanzar la ejecución con el comando: _mvn -Prun -DskipTests=true package cargo:run_
 
-La aplicación se servirá en la URL local: _http://localhost:9080/DAAExample_
+La aplicación se servirá en la URL local: _http://localhost:9080/Letta
 
 Para detener la ejecución podemos utilizar _Ctrl+C_.
 
@@ -100,7 +111,7 @@ Para detener la ejecución podemos utilizar _Ctrl+C_.
 
 Durante el desarrollo es interesante que la aplicación se redespliegue de forma automática cada vez que se hace un cambio. Para ello podemos utilizar el siguiente comando: `mvn -Prun -DskipTests=true package cargo:start fizzed-watcher:run`
 
-La aplicación se servirá en la URL local: _http://localhost:9080/DAAExample_
+La aplicación se servirá en la URL local: _http://localhost:9080/Letta
 
 Para detener la ejecución podemos utilizar _Ctrl+C_.
 
@@ -111,8 +122,6 @@ El modelo de control de versiones será sencillo, aunque inicialmente ya contamo
 - master: a esta rama solo se enviarán los commits cuando se llegue a una versión estable y publicable (una release). Estas versiones deberán estar etiquetadas con el número de versión correspondiente.
 
 - develop: esta será la rama principal de trabajo. Los commits que se envíen deben ser estables, lo que supone que el código debe incluir tests y todos deben superarse exitosamente al construir la aplicación en local.
-
-- test: a esta rama deben llegar las versiones estables de las tareas para que otro integrante del equipo pueda realizar los test pertinentes.
 
 - tmp-: las ramas con el prefijo tmp- son ramas temporales. Cada pareja sólo podrá tener una única rama temporal, que deberá eliminar de los repositorios local y remoto en el momento que ya no sean necesarias. Las ramas temporales siempre deben crearse desde la rama develop. La pareja propietaria de la rama podrá hacer push y pull, mientras que el resto solo podrán hacer pull. Este tipo de ramas admite cualquier tipo de commit (p.ej. código incompleto, código que no compila, código sin tests, etc.) y, por tanto, no serán controladas por el servidor de integración continua. Por último, el nombre de la rama debe ser:
   - tmp-\&lt;pareja\&gt;: dónde \&lt;pareja\&gt; son las iniciales de la pareja propietaria en mayúsculas.
@@ -141,13 +150,8 @@ Este comando iniciará un proceso de rebase desde la rama local hacia la rama re
 
 Con esta configuración ya no tendríamos que añadir el modificador --rebase al hacer pull.
 
-**6.3. Hacer pull**
 
-En el caso de que haya una construcción en ejecución no debe hacerse pull hasta que finalice y se compruebe que ha sido con éxito.
-
-En el caso de que la construcción falle, debe esperarse a que el repositorio vuelva a un estado estable (ver sección 6.1) antes de hacer pull.
-
-**6.4. Pull con cambios locales no commiteados**
+**6.3. Pull con cambios locales no commiteados**
 
 En caso de que nos encontremos en medio de un commit (no se ha completado los cambios necesarios para realizar un commit) y deseemos descargar nuevos commits del servidor central, podemos hacerlo utilizando los comandos:
 
@@ -228,16 +232,17 @@ El formato de los commits deberá respetar las siguientes normas:
 - Escritos en inglés.
 - Limitar el tamaño de línea a 80 columnas. Si se utiliza Eclipse, esto se hace de forma automática.
 
-Primera línea descriptiva de lo que hace el commit:
+El título del commit debe identificar la tarea realziada:
 
-- Si está relacionado con alguna tarea concreta de las descritas en Kunagi, debe comenzar con el identificador de la tarea (p.ej. &quot;tsk1 Adds...&quot;).
+- Si está relacionado con alguna tarea concreta de las descritas en Kunagi, debe comenzar con el identificador de la tarea (p.ej. &quot;tsk1 Adds...&quot;) y a continuación el nombre de esta.
 - Si está relacionado con varias tareas, su número se separará con un guión(p.ej. &quot;tsk1-2-13 Fixes...&quot;).
 - Debe estar redactada en tercera persona del presente (p.ej. _Adds...,Improves..., Modifies..., etc._).
 - No debe llevar punto al final.
 
-Cuerpo del commit descriptivo. Con una línea vacía de separación de la primera
+Cuerpo del commit descriptivo:
 
-línea, debe escribirse un texto que explique claramente el trabajo hecho en el
+-Nombres de los participantes separados por un guión
+- A continuación en otra línea, debe escribirse un texto que explique claramente el trabajo hecho en el
 
 commit.
 

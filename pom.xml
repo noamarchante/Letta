@@ -2,11 +2,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>es.uvigo.esei.daa</groupId>
-	<artifactId>example</artifactId>
+	<groupId>es.uvigo.esei.letta</groupId>
+	<artifactId>letta</artifactId>
 	<packaging>war</packaging>
-	<version>0.1.19</version>
-	<name>DAA Example</name>
+	<version>0.2.0-SNAPSHOT</version>
+	<name>Letta</name>
 
 	<licenses>
 		<license>
@@ -195,7 +195,7 @@
 	</reporting>
 
 	<build>
-		<finalName>DAAExample</finalName>
+		<finalName>Letta</finalName>
 
 		<plugins>
 			<plugin>
@@ -314,7 +314,7 @@
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
+					<version>0.2.0</version>
 					<configuration>
 						<lifecycleMappingMetadata>
 							<pluginExecutions>
@@ -403,11 +403,11 @@
 								<properties>
 									<cargo.servlet.port>9080</cargo.servlet.port>
 									<cargo.datasource.datasource.h2>
-										cargo.datasource.jndi=jdbc/daaexample|
+										cargo.datasource.jndi=jdbc/letta|
 										cargo.datasource.driver=com.mysql.jdbc.Driver|
-										cargo.datasource.url=jdbc:mysql://localhost/daaexample?useSSL=false|
-										cargo.datasource.username=daa|
-										cargo.datasource.password=daa|
+										cargo.datasource.url=jdbc:mysql://localhost/letta?useSSL=false|
+										cargo.datasource.username=letta|
+										cargo.datasource.password=lettapass|
 										cargo.datasource.maxActive=8|
 										cargo.datasource.maxIdle=4|
 										cargo.datasource.maxWait=10000

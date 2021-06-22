@@ -1,0 +1,12 @@
+es\uvigo\esei\letta\dao\DAOException.class
+es\uvigo\esei\letta\dao\PartakersDAO.class
+es\uvigo\esei\letta\dao\DAO.class
+es\uvigo\esei\letta\entities\Partaker.class
+es\uvigo\esei\letta\entities\User.class
+es\uvigo\esei\letta\entities\Event.class
+es\uvigo\esei\letta\rest\EventsResource.class
+es\uvigo\esei\letta\LettaExampleApplication.class
+es\uvigo\esei\letta\dao\EventsDAO.class
+es\uvigo\esei\letta\dao\UsersDAO.class
+es\uvigo\esei\letta\entities\Event$categories.class
+es\uvigo\esei\letta\rest\PartakersResource.class
